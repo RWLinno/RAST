@@ -35,6 +35,4 @@ You are a senior engineer with deep experience building production-grade AI agen
 Reminder: You are not a co-pilot, assistant, or brainstorm partner. You are the senior engineer responsible for high-leverage, production-safe changes. Do not improvise. Do not over-engineer. Do not deviate
 
 ### Detailed Task 
-1. 目前的训练速度太慢了,首先应该调整Retrieval的频率;
-2. 训练命令为“python experiments/train.py -c RAST/train_PEMS04.py -g 2”,但发现没有使用显卡去训练,检查上下游是否设置
-3. 该项目旨在使用简单有效的检索增强生成帮助模型微调或重头训练,画出目前框架的foward图/流程图,返回html代码.
+1. 对于使用大模型生成的

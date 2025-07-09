@@ -6,6 +6,7 @@ database/
 checkpoints/
 datasets/
 baselines/
+src/prompts/
 
 # file
 *.npz

@@ -34,6 +34,7 @@ MODEL_PARAM = {
     "input_dim": 3,
     "output_dim": 1,
     "dropout": 0.1,
+
     # RAST 模型参数
     "embed_dim": 128,
     "retrieval_dim": 128, 
@@ -45,17 +46,18 @@ MODEL_PARAM = {
     "factor":3,
     "prompt_domain": "PEMS04",
     "gap": 3,
+    "output_type": "full",# "only_data_embed",
     # LLM textual programming 相关参数
     "llm_model": "bert-base-uncased", ## LLAMA, GPT2, BERT
     "llm_dim": 768, # LLama7b:4096; GPT2-small:768; BERT-base:768
     "top_k": 3, # 影响prompt中的统计信息
     "mlp_ratio": 4.0,
     "attn_dropout": 0.1,
-    # GPU设备参数
+
     "device_id": 2,  # Use specific GPU device
     "timing_mode": False,  # Disable timing analysis by default
     "use_amp": False,  # Disable AMP to fix GPU issues
-    # 训练优化参数
+
     "update_interval": 15, # Retrieval store update interval (epochs) for better training speed
 }
 NUM_EPOCHS = 100

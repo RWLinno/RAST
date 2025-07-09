@@ -64,7 +64,7 @@ class RAST(nn.Module):
         self.prompt_batch_size = model_args.get('batch_size', 32)
         
         self.debug_prompts = 1
-        self.update_interval = model_args.get('update_interval', 20)  # Default to 20 epochs for better training speed
+        self.update_interval = model_args.get('update_interval', 5)  # Default to 20 epochs for better training speed
         self.output_type = model_args.get('output_type', 'full')  # 'full', 'only_data_embed', or 'only_retrieval_embed'
         
         # GPU device setting and timing mode
@@ -81,17 +81,12 @@ class RAST(nn.Module):
         self.pre_train_path = model_args.get('pre_train_path', None)
         self.database_path = model_args.get('database_path', './database')
         
-        # Performance optimizations
-        self.enable_retrieval_cache = True
-        self.retrieval_update_frequency = 5  # Update every N epochs instead of every epoch
-        self.fast_forward_mode = model_args.get('fast_forward_mode', True)
-        
         # Ensure database directory exists
         os.makedirs(self.database_path, exist_ok=True)
         print(f"Database path: {self.database_path}")
         
         # Initialize device and timing
-        self._init_device_and_timing()
+        self._init_timing()
         
         # Initialize components
         self._init_components()
@@ -101,49 +96,14 @@ class RAST(nn.Module):
         # Create ablation-specific components
         self._init_ablation_components()
         
-        # Move model to device EXPLICITLY
-        self._move_to_device()
-        
         # Training settings
         self.prompt_cache = {}  # Cache for prompt generation
         self.retrieval_cache = {}  # Cache for retrieval results
-        
-        # Performance monitoring
-        self.forward_count = 0
-        self.retrieval_skip_count = 0
     
-    def _init_device_and_timing(self):
+    def _init_timing(self):
         """Initialize device settings and timing utilities with explicit CUDA setup"""
         import time
         import functools
-        
-        # Explicit CUDA device setup
-        if torch.cuda.is_available():
-            # Set default CUDA device
-            torch.cuda.set_device(self.device_id)
-            self.device = torch.device(f'cuda:{self.device_id}')
-            
-            # Initialize CUDA context
-            torch.cuda.init()
-            
-            # Clear cache and set memory allocation strategy
-            torch.cuda.empty_cache()
-            
-            print(f"🚀 CUDA Setup Complete:")
-            print(f"   - Device: cuda:{self.device_id}")
-            print(f"   - GPU Name: {torch.cuda.get_device_name(self.device_id)}")
-            print(f"   - Memory: {torch.cuda.get_device_properties(self.device_id).total_memory / 1024**3:.1f}GB")
-            print(f"   - CUDA Version: {torch.version.cuda}")
-            
-            # Set deterministic behavior for reproducibility (optional)
-            if hasattr(torch.backends.cudnn, 'deterministic'):
-                torch.backends.cudnn.deterministic = False  # False for better performance
-                torch.backends.cudnn.benchmark = True  # True for better performance with fixed input sizes
-                
-        else:
-            self.device = torch.device('cpu')
-            print("⚠️ CUDA not available, using CPU")
-            self.use_amp = False  # Disable AMP on CPU
         
         # Timing utilities
         self.module_timings = {}
@@ -173,31 +133,7 @@ class RAST(nn.Module):
                 return decorator
             
             self.timing_decorator = timing_decorator
-        
-    def _move_to_device(self):
-        """Explicitly move all model components to the specified device"""
-        try:
-            # Move main model to device
-            self.to(self.device)
-            
-            # Ensure all parameters are on the correct device
-            for name, param in self.named_parameters():
-                if param.device != self.device:
-                    param.data = param.data.to(self.device)
-                    print(f"Moved parameter {name} to {self.device}")
-            
-            # Move buffers to device
-            for name, buffer in self.named_buffers():
-                if buffer.device != self.device:
-                    buffer.data = buffer.data.to(self.device)
-                    print(f"Moved buffer {name} to {self.device}")
-            
-            print(f"✅ All model components moved to {self.device}")
-            
-        except Exception as e:
-            print(f"❌ Error moving model to device: {e}")
-            traceback.print_exc()
-    
+
     def _init_components(self):
         """Initialize model components with proper weight initialization and regularization"""
         # Pre-trained encoder
@@ -250,14 +186,11 @@ class RAST(nn.Module):
                     nn.init.zeros_(m.bias)
         
         # Spatio-temporal feature processing
-        # 1. Define fusion dimension
         self.fusion_dim = self.temporal_dim + self.spatial_dim  
-        
-        # 2. Node embeddings with Xavier initialization
+
         self.spatial_node_embeddings = nn.Parameter(torch.empty(self.num_nodes, self.spatial_dim))
         nn.init.xavier_uniform_(self.spatial_node_embeddings)
         
-        # 3. Temporal series encoding with proper initialization
         self.temporal_series_encoder = nn.Conv2d(
             in_channels=self.input_dim * self.seq_len,
             out_channels=self.temporal_dim,
@@ -406,7 +339,6 @@ class RAST(nn.Module):
             - spatial_prompts: List[str] of length N, prompts for each node
         """
         B, T, N, D = data.shape
-        device = data.device
         
         # Average across batch dimension to get [T, N, D]
         data_mean = torch.mean(data, dim=0)
@@ -478,7 +410,6 @@ class RAST(nn.Module):
             )
             spatial_prompts.append(prompt)
         
-        # 添加缓存机制
         cache_key = f"{domain}_{data.shape}_{torch.mean(data).item():.4f}"
         if cache_key in self.prompt_cache:
             return self.prompt_cache[cache_key]
@@ -508,7 +439,6 @@ class RAST(nn.Module):
             
             # Optimize batch size for processing
             batch_size = 128  # Increased batch size for better efficiency
-            device = next(self.parameters()).device
             
             # Process all prompts in a single loop to reduce redundancy
             all_prompts = temporal_prompts + spatial_prompts
@@ -626,19 +556,8 @@ class RAST(nn.Module):
         """
         Optimized forward pass with reduced overhead and better GPU utilization
         """
-        if self.timing_mode:
-            start_time = time.time()
-        
-        self.forward_count += 1
         B, L, N, D = history_data.shape
-        
-        # Ensure data is on the correct device
-        if history_data.device != self.device:
-            history_data = history_data.to(self.device, non_blocking=True)
-        if future_data.device != self.device:
-            future_data = future_data.to(self.device, non_blocking=True)
-        
-        # Use mixed precision if available
+    
         if self.use_amp and torch.cuda.is_available():
             with torch.cuda.amp.autocast():
                 return self._forward_impl(history_data, future_data, batch_seen, epoch, train)
@@ -650,31 +569,21 @@ class RAST(nn.Module):
         """Implementation of forward pass"""
         B, L, N, D = history_data.shape
         device = history_data.device
-        
-        # 1. Basic data processing - shared across all modes
         input_data = history_data[..., range(self.input_dim)]
         
-        # 2. Temporal feature processing (optimized)
         input_data = input_data.transpose(1, 2).contiguous()
         input_data = input_data.view(B, N, -1).transpose(1, 2).unsqueeze(-1)
-        data_embed = self.temporal_series_encoder(input_data)
+        temp_embed = self.temporal_series_encoder(input_data)
+        node_embed = self.spatial_node_embeddings.unsqueeze(0).expand(B, -1, -1).transpose(1, 2).unsqueeze(-1)
+
+        hidden = torch.cat([temp_embed, node_embed], dim=1)
         
-        # 3. Node embedding processing (optimized)
-        node_emb = self.spatial_node_embeddings.unsqueeze(0).expand(B, -1, -1).transpose(1, 2).unsqueeze(-1)
-        
-        # 4. Feature fusion
-        hidden = torch.cat([data_embed, node_emb], dim=1)
-        
-        # 5. Feature encoding with simplified processing
         hidden_permuted = hidden.squeeze(-1).transpose(1, 2)  # [B, N, fusion_dim]
         
-        # Apply simplified feature encoding
         for layer in self.feature_encoder_layers:
             hidden_permuted = layer(hidden_permuted) + hidden_permuted  # Residual connection
         
-        # Process based on output mode
         if self.output_type == "only_data_embed":
-            # Data embedding only mode (fastest)
             prediction = self.regression_layer(hidden_permuted)
             prediction = prediction.unsqueeze(-1).expand(-1, -1, -1, self.output_dim)
             prediction = self.output_projector(prediction.reshape(-1, self.output_dim))
@@ -683,61 +592,56 @@ class RAST(nn.Module):
             
             return {'prediction': prediction}
         
-        else:  # "full" or "only_retrieval_embed" mode
-            # Project to embedding dimension
-            query_embed = self.hidden_to_embed_proj(hidden_permuted)
-            query_embed = query_embed.unsqueeze(1).expand(-1, L, -1, -1)
-            
-            # Initialize retrieval embeddings
+        # "full" or "only_retrieval_embed" mode
+        # Project to embedding dimension
+        query_embed = self.hidden_to_embed_proj(hidden_permuted)
+        query_embed = query_embed.unsqueeze(1).expand(-1, L, -1, -1)
+        
+        # Initialize retrieval embeddings
+        if self.output_type == "without_retrieval":
             retrieval_embed = torch.zeros(B, L, N, self.retrieval_dim, device=device, dtype=query_embed.dtype)
-            
-            # Retrieval processing with smart updates
-            if self.output_type in ["full", "only_retrieval_embed"]:
-                # Smart retrieval update strategy - reduced frequency for speed
-                should_update_retrieval = (
-                    train and 
-                    epoch % max(10, self.update_interval) == 0 and  # Use larger interval 
-                    batch_seen == 0 and
-                    not hasattr(self, f'updated_epoch_{epoch}')
-                )
-                
-                if should_update_retrieval:
-                    print(f"Updating retrieval store at epoch {epoch}")
-                    self.update_retrieval_store(history_data, epoch)
-                    setattr(self, f'updated_epoch_{epoch}', True)
-                
-                # Perform retrieval
-                if self.retrieval_store.temporal_vectors and self.retrieval_store.spatial_vectors:
-                    query = self.query_proj(query_embed)
-                    retrieval_embed = self.retrieve(query, history_data)
-                else:
-                    # Skip retrieval if store is empty
-                    self.retrieval_skip_count += 1
+        else:
+            retrieval_embed = self.retrieval_embed_mlp(query_embed)
 
-            # Process embeddings based on mode
-            if self.output_type == "only_retrieval_embed":
-                final_embed = self.retrieval_embed_mlp(retrieval_embed)
-            else:  # "full" mode
-                combined = torch.cat([query_embed, retrieval_embed], dim=-1)
-                final_embed = self.combined_embed_mlp(combined)
+        # Retrieval processing with smart updates
+        if self.output_type in ["full", "only_retrieval_embed"]:
+            should_update_retrieval = (
+                train and 
+                epoch % max(10, self.update_interval) == 0 and  # Use larger interval 
+                batch_seen == 0 and
+                not hasattr(self, f'updated_epoch_{epoch}')
+            )
             
-            # Generate predictions efficiently
-            B_new, L_new, N_new, E_new = final_embed.shape
-            final_embed_flat = final_embed.reshape(-1, E_new)
-            out_flat = self.out_proj(final_embed_flat)
+            if should_update_retrieval:
+                print(f"Updating retrieval store at epoch {epoch}")
+                self.update_retrieval_store(history_data, epoch)
+                setattr(self, f'updated_epoch_{epoch}', True)
             
-            out = out_flat.reshape(B_new, L_new, N_new, self.horizon * self.output_dim)
-            out = out.mean(dim=1)  # Aggregate time dimension
-            out = out.reshape(B_new, N_new, self.horizon, self.output_dim)
-            out = out.permute(0, 2, 1, 3)  # [B, horizon, N, output_dim]
-            
-            if self.timing_mode and self.forward_count % 100 == 0:
-                print(f"Performance Stats - Forward: {self.forward_count}, Retrieval Skips: {self.retrieval_skip_count}")
-            
-            return {'prediction': out}
+            # Perform retrieval
+            if self.retrieval_store.temporal_vectors and self.retrieval_store.spatial_vectors:
+                query = self.query_proj(query_embed)
+                retrieval_embed = self.retrieve(query, history_data)
+
+        # Process embeddings based on mode
+        if self.output_type == "only_retrieval_embed":
+            final_embed = self.retrieval_embed_mlp(retrieval_embed)
+        else:  # "full" mode
+            combined = torch.cat([query_embed, retrieval_embed], dim=-1)
+            final_embed = self.combined_embed_mlp(combined)
+        
+        # Generate predictions efficiently
+        B_new, L_new, N_new, E_new = final_embed.shape
+        final_embed_flat = final_embed.reshape(-1, E_new)
+        out_flat = self.out_proj(final_embed_flat)
+        
+        out = out_flat.reshape(B_new, L_new, N_new, self.horizon * self.output_dim)
+        out = out.mean(dim=1)  # Aggregate time dimension
+        out = out.reshape(B_new, N_new, self.horizon, self.output_dim)
+        out = out.permute(0, 2, 1, 3)  # [B, horizon, N, output_dim]
+        
+        return {'prediction': out}
 
     def _record_timing(self, module_name: str, duration: float):
-        """Record timing for a module"""
         if module_name not in self.module_timings:
             self.module_timings[module_name] = []
         self.module_timings[module_name].append(duration)
@@ -833,7 +737,6 @@ class RAST(nn.Module):
             
             # Process prompts in batches for efficiency
             batch_size = 128  # Increased batch size for better efficiency
-            device = next(self.parameters()).device
             
             # Process temporal prompts
             for i in range(0, len(temporal_prompts), batch_size):
