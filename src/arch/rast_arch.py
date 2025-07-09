@@ -576,6 +576,8 @@ class RAST(nn.Module):
         temp_embed = self.temporal_series_encoder(input_data)
         node_embed = self.spatial_node_embeddings.unsqueeze(0).expand(B, -1, -1).transpose(1, 2).unsqueeze(-1)
 
+        # <Hint>:可以考虑使用temp_embed和node_embed维护时间和空间两个数据表,放在retrieval_store中
+
         hidden = torch.cat([temp_embed, node_embed], dim=1)
         
         hidden_permuted = hidden.squeeze(-1).transpose(1, 2)  # [B, N, fusion_dim]
@@ -583,7 +585,7 @@ class RAST(nn.Module):
         for layer in self.feature_encoder_layers:
             hidden_permuted = layer(hidden_permuted) + hidden_permuted  # Residual connection
         
-        if self.output_type == "only_data_embed":
+        if self.output_type == "only_data_embed": # Ablation Study
             prediction = self.regression_layer(hidden_permuted)
             prediction = prediction.unsqueeze(-1).expand(-1, -1, -1, self.output_dim)
             prediction = self.output_projector(prediction.reshape(-1, self.output_dim))
@@ -591,56 +593,40 @@ class RAST(nn.Module):
             prediction = prediction.permute(0, 2, 1, 3)
             
             return {'prediction': prediction}
-        
-        # "full" or "only_retrieval_embed" mode
-        # Project to embedding dimension
+
         query_embed = self.hidden_to_embed_proj(hidden_permuted)
-        query_embed = query_embed.unsqueeze(1).expand(-1, L, -1, -1)
-        
-        # Initialize retrieval embeddings
-        if self.output_type == "without_retrieval":
-            retrieval_embed = torch.zeros(B, L, N, self.retrieval_dim, device=device, dtype=query_embed.dtype)
-        else:
-            retrieval_embed = self.retrieval_embed_mlp(query_embed)
+        query_embed = query_embed.unsqueeze(1).expand(-1, L, -1, -1) # [B,L,N,query_dim]
 
-        # Retrieval processing with smart updates
-        if self.output_type in ["full", "only_retrieval_embed"]:
-            should_update_retrieval = (
-                train and 
-                epoch % max(10, self.update_interval) == 0 and  # Use larger interval 
-                batch_seen == 0 and
-                not hasattr(self, f'updated_epoch_{epoch}')
-            )
+        retrieval_embed = self.retriever(query_embed) # [B,L,N,retrieval_dim]
+
+        if self.output_type == "without_retrieval_embedding": # Ablation
+            retrieval_embed = torch.zero_likes(retrieval_embed)
+        elif self.output_type == "without_query_embedding":
+            query_embed = torch.zero_likes(query_embed)
+
+ #<Hint>:foward过程需要重点改下面的部分，我觉得retrieval_embed需要从RetrievalStore中检索两个表，
+ #分别去更新时间维度和空间维度，另外上面hint的地方可以update这些表。
+
+        should_update_retrieval = (
+            train and self.output_type in ["full", "only_retrieval_embed"] and
+            epoch % self.update_interval == 0 and batch_seen == 0)
             
-            if should_update_retrieval:
-                print(f"Updating retrieval store at epoch {epoch}")
-                self.update_retrieval_store(history_data, epoch)
-                setattr(self, f'updated_epoch_{epoch}', True)
+        if should_update_retrieval:
+            print(f"Updating retrieval store at epoch {epoch}")
+            self.update_retrieval_store(history_data, epoch)
+        
+        if self.retrieval_store.temporal_vectors and self.retrieval_store.spatial_vectors:
+            query = self.query_proj(query_embed) 
+            retrieval_embed = self.retrieve(query, history_data) 
+
+#-------------------- <Hint>------------------------
+
+        combined = torch.cat([query_embed, retrieval_embed], dim=-1) # [B,L,N,query_dim+retrieval_dim]
+        output = self.backbone(combined) # [B,T,N,output_dim]
             
-            # Perform retrieval
-            if self.retrieval_store.temporal_vectors and self.retrieval_store.spatial_vectors:
-                query = self.query_proj(query_embed)
-                retrieval_embed = self.retrieve(query, history_data)
+        return {'prediction': output}
 
-        # Process embeddings based on mode
-        if self.output_type == "only_retrieval_embed":
-            final_embed = self.retrieval_embed_mlp(retrieval_embed)
-        else:  # "full" mode
-            combined = torch.cat([query_embed, retrieval_embed], dim=-1)
-            final_embed = self.combined_embed_mlp(combined)
-        
-        # Generate predictions efficiently
-        B_new, L_new, N_new, E_new = final_embed.shape
-        final_embed_flat = final_embed.reshape(-1, E_new)
-        out_flat = self.out_proj(final_embed_flat)
-        
-        out = out_flat.reshape(B_new, L_new, N_new, self.horizon * self.output_dim)
-        out = out.mean(dim=1)  # Aggregate time dimension
-        out = out.reshape(B_new, N_new, self.horizon, self.output_dim)
-        out = out.permute(0, 2, 1, 3)  # [B, horizon, N, output_dim]
-        
-        return {'prediction': out}
-
+# 为了代码的简洁，可以把下面的代码放到utils.py中
     def _record_timing(self, module_name: str, duration: float):
         if module_name not in self.module_timings:
             self.module_timings[module_name] = []

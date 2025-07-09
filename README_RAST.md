@@ -35,4 +35,5 @@ You are a senior engineer with deep experience building production-grade AI agen
 Reminder: You are not a co-pilot, assistant, or brainstorm partner. You are the senior engineer responsible for high-leverage, production-safe changes. Do not improvise. Do not over-engineer. Do not deviate
 
 ### Detailed Task 
-1. 对于使用大模型生成的
+你需要帮助我修改模型框架和RetrievalStore的相关部分，我会在代码中使用#<Hint>作为提示
+对于使用大模型使用RAG的技术，通常的思路是：数据预处理→分块→文本向量化→ query向量化→ 向量检索→重排→query+检索内容输入LLM→输出，但是我们模型说做的其实是时空数据预测，所以会有所不同。给定时空数据维度[batch_size, seq_length, num_nodes, input_dim],我的输出维度[batch_size,horizon, num_nodes, input_dim]。把RAG运用到其中，我们可以把LLM变成pre_trained_STGNNs(预训练时空图神经网络)，分块理解为patch_embedding，我们的RetrievalStore相当于一个大的MemoryBank，去取代文本数据库。indexing的过程则是Retriever用输入张量检索匹配度最高的历史点，从RetrievalStore中取出，然后经过Selector和Preditor(代替重排和向量化等)得到[batch_size,seq_length, num_nodes, input_dim]的Retrieval_Embedding。
