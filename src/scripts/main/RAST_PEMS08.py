@@ -13,7 +13,7 @@ from src.arch import RAST
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'PEMS04'  # Dataset name
+DATA_NAME = 'PEMS08'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -27,45 +27,32 @@ MODEL_ARCH = RAST
 adj_mx, _ = load_adj("datasets/" + DATA_NAME +
                      "/adj_mx.pkl", "doubletransition")
 MODEL_PARAM = {
-    # 基本训练参数
-    "num_nodes": 307,
+    "num_nodes": 170,
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
     "output_dim": 1,
     "dropout": 0.1,
 
-    # RAST 模型参数
-    "embed_dim": 128,
+    "query_dim": 128,
     "retrieval_dim": 128, 
-    "encoder_layers": 1,
-    "decoder_layers": 1,
-    "n_heads": 16,
     "patch_size": 32, # patching
     "stride":16,
     "factor":3,
-    "prompt_domain": "PEMS04",
     "gap": 3,
-    "output_type": "full",# "only_data_embed",
-    # LLM textual programming 相关参数
-    "llm_model": "bert-base-uncased", ## LLAMA, GPT2, BERT
-    "llm_dim": 768, # LLama7b:4096; GPT2-small:768; BERT-base:768
-    "top_k": 3, # 影响prompt中的统计信息
-    "mlp_ratio": 4.0,
-    "attn_dropout": 0.1,
-
-    "device_id": 2,  # Use specific GPU device
+    "output_type": "full",
+    "device_id": 1,  # Use specific GPU device
     "timing_mode": False,  # Disable timing analysis by default
     "use_amp": False,  # Disable AMP to fix GPU issues
 
-    "update_interval": 15, # Retrieval store update interval (epochs) for better training speed
+    "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
 }
-NUM_EPOCHS = 100
+NUM_EPOCHS = 300
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
 # General settings
-CFG.DESCRIPTION = 'Train RAST on PEMS04 dataset'
+CFG.DESCRIPTION = 'Train RAST on PEMS08 dataset'
 CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 # Runner
 CFG.RUNNER = SimpleTimeSeriesForecastingRunner

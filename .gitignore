@@ -9,6 +9,8 @@ baselines/
 src/prompts/
 
 # file
+*.html
+*.zip
 *.npz
 *.npy
 *.csv
