@@ -46,6 +46,10 @@ MODEL_PARAM = {
     "retrieval_dim": 128, 
     "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
     "encoder_layers": 3,
+    
+    # Pre-trained STID model configuration
+    "pre_train_model_name": "STID",
+    "pre_train_path": f"checkpoints/STID/PEMS03_300_{INPUT_LEN}_{OUTPUT_LEN}",
 }
 NUM_EPOCHS = 300
 
@@ -160,3 +164,4 @@ CFG.EVAL = EasyDict()
 # Evaluation parameters
 CFG.EVAL.HORIZONS = [3, 6, 12] # Prediction horizons for evaluation. Default: []
 CFG.EVAL.USE_GPU = True # Whether to use GPU for evaluation. Default: True
+CFG.TRAIN.EARLY_STOPPING_PATIENCE = 10

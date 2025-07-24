@@ -13,7 +13,7 @@ from src.arch import RAST
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'PEMS03'  # Dataset name
+DATA_NAME = 'PEMS08'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -27,32 +27,37 @@ MODEL_ARCH = RAST
 adj_mx, _ = load_adj("datasets/" + DATA_NAME +
                      "/adj_mx.pkl", "doubletransition")
 MODEL_PARAM = {
-    "num_nodes": 358,
+    "num_nodes": 170,
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
     "output_dim": 1,
     "dropout": 0.1,
+
     "patch_size": 32, # patching
     "stride":16,
     "factor":3,
     "gap": 3,
     "output_type": "full",
-    "device_id": 2,  # Use specific GPU device
+    "device_id": 1,  # Use specific GPU device
     "timing_mode": False,  # Disable timing analysis by default
     "use_amp": False,  # Disable AMP to fix GPU issues
 
+    "encoder_layers": 3,
     "query_dim": 256,
     "retrieval_dim": 128, 
-    "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
-    "encoder_layers": 3,
+    "update_interval": 10,
+    
+    # Pre-trained STID model configuration
+    "pre_train_model_name": "STID",
+    "pre_train_path": f"checkpoints/STID/PEMS08_300_{INPUT_LEN}_{OUTPUT_LEN}",
 }
 NUM_EPOCHS = 300
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
 # General settings
-CFG.DESCRIPTION = 'Train RAST on PEMS03 dataset'
+CFG.DESCRIPTION = 'Train RAST on PEMS08 dataset'
 CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 # Runner
 CFG.RUNNER = SimpleTimeSeriesForecastingRunner
@@ -110,7 +115,6 @@ CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
     MODEL_ARCH.__name__,
     '_'.join([DATA_NAME, str(CFG.TRAIN.NUM_EPOCHS), str(INPUT_LEN), str(OUTPUT_LEN)])
 )
-MODEL_PARAM['database_path'] = CFG.TRAIN.CKPT_SAVE_DIR
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings
 CFG.TRAIN.OPTIM = EasyDict()
@@ -160,3 +164,4 @@ CFG.EVAL = EasyDict()
 # Evaluation parameters
 CFG.EVAL.HORIZONS = [3, 6, 12] # Prediction horizons for evaluation. Default: []
 CFG.EVAL.USE_GPU = True # Whether to use GPU for evaluation. Default: True
+CFG.TRAIN.EARLY_STOPPING_PATIENCE = 10

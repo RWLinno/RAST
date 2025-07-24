@@ -3,27 +3,63 @@ import functools
 import numpy as np
 import torch
 import os
+import glob
 
 from baselines.STID.arch.stid_arch import STID
 from baselines.AGCRN.arch.agcrn_arch import AGCRN
+from .model_configs import get_model_config, infer_dataset_from_path
 
-def load_model(model_path, model_name, device):
-    """Load a model from a path"""
-    model_dict = {    
-        'STID': STID,
-        'AGCRN': AGCRN
-    }
-    model = _build_model(model_dict[model_name])
-    model.load_state_dict(torch.load(model_path))
+MODEL_REGISTRY = {    
+    'STID': STID,
+    'AGCRN': AGCRN
+}
+
+def register_model(name, model_class):
+    MODEL_REGISTRY[name] = model_class
+    print(f"Registered model: {name}")
+
+def load_pretrained_stgnn(pretrain_path, model_name):
+    if model_name not in MODEL_REGISTRY:
+        raise ValueError(f"Model {model_name} not supported. Available: {list(MODEL_REGISTRY.keys())}")
+    
+    dataset_name = infer_dataset_from_path(pretrain_path)
+    print(f"Inferred dataset: {dataset_name}")
+    
+    model_config = get_model_config(model_name, dataset_name)
+    print(f"Loading {model_name} with config: {model_config}")
+    
+    model_class = MODEL_REGISTRY[model_name]
+    model = model_class(**model_config)
+    
+    _load_checkpoint(model, pretrain_path)
+    
     model.eval()
+    print(f"Successfully loaded pre-trained {model_name} from {pretrain_path}")
     return model
 
-def _build_model(self):
-    raise NotImplementedError
-    return None
+def _load_checkpoint(model, checkpoint_path):
+    try:
+        checkpoint = torch.load(checkpoint_path)
+        if isinstance(checkpoint, dict):
+            if 'model_state_dict' in checkpoint:
+                state_dict = checkpoint['model_state_dict']
+            elif 'model' in checkpoint:
+                state_dict = checkpoint['model']
+            elif 'state_dict' in checkpoint:
+                state_dict = checkpoint['state_dict']
+            else:
+                state_dict = checkpoint
+        else:
+            state_dict = checkpoint
+        
+        model.load_state_dict(state_dict, strict=False)
+        
+    except Exception as e:
+        raise RuntimeError(f"Failed to load checkpoint from {checkpoint_path}: {str(e)}")
+
+
 
 def timing_decorator(func_name, module_timings):
-    """Decorator for timing model components"""
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -44,18 +80,15 @@ def timing_decorator(func_name, module_timings):
     return decorator
 
 def count_parameters(module):
-    """Count parameters in a module"""
     if hasattr(module, 'parameters'):
         return sum(p.numel() for p in module.parameters() if p.requires_grad)
     return 0
 
 def analyze_model_efficiency(model):
-    """Analyze module efficiency and exit"""
     print("\n" + "="*80)
     print("🔍 RAST MODEL EFFICIENCY ANALYSIS")
     print("="*80)
     
-    # Collect parameter counts
     modules = {
         'temporal_series_encoder': model.temporal_series_encoder,
         'spatial_node_embeddings': model.spatial_node_embeddings,
@@ -87,7 +120,6 @@ def analyze_model_efficiency(model):
     print("-" * 70)
     print(f"{'TOTAL':<25} {total_params:<15,}")
     
-    # Timing analysis
     if hasattr(model, 'module_timings'):
         print("\n📊 TIMING BREAKDOWN:")
         total_time = sum(np.mean(times) for times in model.module_timings.values()) * 1000
@@ -104,7 +136,6 @@ def analyze_model_efficiency(model):
     if hasattr(model, 'use_amp'):
         print(f"🔧 Mixed Precision: {'Enabled' if model.use_amp else 'Disabled'}")
     
-    # Performance recommendations
     if hasattr(model, 'module_timings'):
         print("\n💡 PERFORMANCE RECOMMENDATIONS:")
         sorted_times = sorted(model.module_timings.items(), 
@@ -119,7 +150,6 @@ def analyze_model_efficiency(model):
     print("="*80)
 
 def record_timing(module_timings, module_name: str, duration: float):
-    """Record timing for a module"""
     if module_name not in module_timings:
         module_timings[module_name] = []
     module_timings[module_name].append(duration)

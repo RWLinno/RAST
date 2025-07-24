@@ -9,7 +9,8 @@ from .blocks.Embed import *
 from .blocks.Pretrain import *
 from .blocks.RetrievalStore import *
 from .blocks.Text_Encoder import *
-from .blocks.utils import load_model
+from .blocks.utils import load_pretrained_stgnn
+from .blocks.MLP import MultiLayerPerceptron
 #from .blocks.MHA import _MultiheadAttention
 
 class RAST(nn.Module):
@@ -29,6 +30,7 @@ class RAST(nn.Module):
         self.top_k = model_args.get('top_k', 3)
         self.dropout = model_args.get('dropout', 0.1)
         self.batch_size = model_args.get('batch_size', 32)
+        self.add_query = True
 
 #        self.decoder_layers = model_args.get('decoder_layers', 1)
 #        self.patch_size = model_args.get('patch_size', 32)
@@ -49,15 +51,27 @@ class RAST(nn.Module):
         self.database_path = model_args.get('database_path', './database')
 
         if self.pre_train_path is not None and self.pre_train_model_name != '':
-            self.backbone = load_model(self.pre_train_path, self.pre_train_model_name)
+            try:
+                self.backbone = load_pretrained_stgnn(
+                    pretrain_path=self.pre_train_path, 
+                    model_name=self.pre_train_model_name,
+                )
+                self.backbone.eval()
+                for param in self.backbone.parameters():
+                    param.requires_grad = False
+                print(f"Loaded pre-trained {self.pre_train_model_name} from {self.pre_train_path}")
+            except Exception as e:
+                print(f"Error loading pre-trained model: {e}")
+                print("Using default backbone")
         else:
-            self.backbone = nn.Sequential(
-                nn.Linear(self.retrieval_dim + self.query_dim, self.embed_dim),
-                nn.ReLU(),
-                nn.Linear(self.embed_dim, self.embed_dim),
-                nn.ReLU(),
-                nn.Linear(self.embed_dim, self.output_dim * self.horizon)
-            )
+            self.backbone = None
+
+        self.mlp_predictor = MultiLayerPerceptron(
+            input_dim=self.retrieval_dim + self.query_dim,
+            output_dim=self.output_dim * self.horizon,
+            dropout=self.dropout
+        )
+
         os.makedirs(self.database_path, exist_ok=True)
         print(f"Database path: {self.database_path}")
 
@@ -123,17 +137,17 @@ class RAST(nn.Module):
         
         self.fusion_dim = self.temporal_dim + self.spatial_dim  
 
-        self.spatial_node_embeddings = nn.Parameter(torch.empty(self.num_nodes, self.spatial_dim))
-        nn.init.xavier_uniform_(self.spatial_node_embeddings)
+        self.spatial_encoder = nn.Parameter(torch.empty(self.num_nodes, self.spatial_dim))
+        nn.init.xavier_uniform_(self.spatial_encoder)
         
-        self.temporal_series_encoder = nn.Conv2d(
+        self.temporal_encoder = nn.Conv2d(
             in_channels=self.input_dim * self.seq_len,
             out_channels=self.temporal_dim,
             kernel_size=(1, 1),
             bias=True
         )
-        nn.init.kaiming_normal_(self.temporal_series_encoder.weight, mode='fan_out', nonlinearity='relu')
-        nn.init.zeros_(self.temporal_series_encoder.bias)
+        nn.init.kaiming_normal_(self.temporal_encoder.weight, mode='fan_out', nonlinearity='relu')
+        nn.init.zeros_(self.temporal_encoder.bias)
 
         self.feature_encoder_layers = nn.ModuleList([
             nn.Sequential(
@@ -281,10 +295,10 @@ class RAST(nn.Module):
         
         return torch.zeros(B, N, self.retrieval_dim, device=device, dtype=query.dtype)
 
-    def _retrieve_temporal_tensors(self, query: torch.Tensor, history_data: torch.Tensor, temp_embed: torch.Tensor) -> torch.Tensor:
+    def temporal_retriever(self, query: torch.Tensor, history_data: torch.Tensor, temp_embed: torch.Tensor) -> torch.Tensor:
         return self._retrieve_tensors(query, history_data, temp_embed, temporal=True)
     
-    def _retrieve_spatial_tensors(self, query: torch.Tensor, history_data: torch.Tensor, node_embed: torch.Tensor) -> torch.Tensor:
+    def spatial_retriever(self, query: torch.Tensor, history_data: torch.Tensor, node_embed: torch.Tensor) -> torch.Tensor:
         return self._retrieve_tensors(query, history_data, node_embed, temporal=False)
     
     def forward(self, history_data: torch.Tensor, future_data: torch.Tensor, 
@@ -306,8 +320,8 @@ class RAST(nn.Module):
         input_data = input_data.transpose(1, 2).contiguous()
         input_data = input_data.view(B, N, -1).transpose(1, 2).unsqueeze(-1)
         
-        temp_embed = self.temporal_series_encoder(input_data)
-        node_embed = self.spatial_node_embeddings.unsqueeze(0).expand(B, -1, -1).transpose(1, 2).unsqueeze(-1)
+        temp_embed = self.temporal_encoder(input_data)
+        node_embed = self.spatial_encoder.unsqueeze(0).expand(B, -1, -1).transpose(1, 2).unsqueeze(-1)
 
         should_update_retrieval = (
             train and self.output_type in ["full", "only_retrieval_embed","without_query_embedding"] and
@@ -319,25 +333,28 @@ class RAST(nn.Module):
             self._update_retrieval_tensors(temp_embed, node_embed, history_data, epoch)
 
         hidden = torch.cat([temp_embed, node_embed], dim=1)
-        hidden_permuted = hidden.squeeze(-1).transpose(1, 2)  # [B, N, fusion_dim]
+        feature_fusion = hidden.squeeze(-1).transpose(1, 2)  # [B, N, fusion_dim]
         
         for layer in self.feature_encoder_layers:
-            hidden_permuted = layer(hidden_permuted) + hidden_permuted
+            feature_fusion = layer(feature_fusion) + feature_fusion
         
-        query_embed = self.horizon_layer(hidden_permuted) # [B,N,horizon] => [64,307,12]
+        query_embed = self.horizon_layer(feature_fusion) # [B,N,horizon] => [64,307,12]
 
-        if self.output_type == "only_query": # Ablation Study
-            query_embed = query_embed.unsqueeze(-1).expand(-1, -1, -1, self.output_dim) # [B,N,horizon,output_dim] => [64,307,12,1]
-            prediction = self.output_projector(query_embed.reshape(-1, self.output_dim))
-            prediction = prediction.reshape(B, N, self.horizon, self.output_dim)
-            prediction = prediction.permute(0, 2, 1, 3) # [B, N, horizon, output_dim]
-            
+        prediction = query_embed.unsqueeze(-1).expand(-1, -1, -1, self.output_dim) # [B,N,horizon,output_dim] => [64,307,12,1]
+        prediction = self.output_projector(query_embed.reshape(-1, self.output_dim))
+        prediction = prediction.reshape(B, N, self.horizon, self.output_dim)
+        prediction = prediction.permute(0, 2, 1, 3)
+
+        if self.output_type == "only_query": # Ablation Study            
             return {'prediction': prediction}
+        
+        if self.backbone is not None:
+            prediction = self.backbone(history_data, future_data, batch_seen, epoch, train)
 
-        query_embed = self.hidden_to_query_proj(hidden_permuted)  # [B, N, query_dim]
+        query_embed = self.hidden_to_query_proj(feature_fusion)  # [B, N, query_dim]
 
-        temporal_retrieval = self._retrieve_temporal_tensors(query_embed, history_data, temp_embed) #[B,N,retrieval_dim]
-        spatial_retrieval = self._retrieve_spatial_tensors(query_embed, history_data, node_embed) #[B,N,retrieval_dim]
+        temporal_retrieval = self.temporal_retriever(query_embed, history_data, temp_embed) #[B,N,retrieval_dim]
+        spatial_retrieval = self.spatial_retriever(query_embed, history_data, node_embed) #[B,N,retrieval_dim]
         
         if self.output_type == "without_temporal_retrieval":
             temporal_retrieval = torch.zeros_like(temporal_retrieval)
@@ -361,11 +378,14 @@ class RAST(nn.Module):
             query_embed = torch.zeros_like(query_embed) # [B,N,query_dim]
 
         combined_embed = torch.cat([retrieval_embed, query_embed], dim=-1) # [B,N,retrieval_dim+query_dim]
-
-        output = self.backbone(combined_embed) # [B,N,retrieval_dim+query_dim] -> [B,N,H*self.output_dim]
+        
+        output = self.mlp_predictor(combined_embed) # [B,N,retrieval_dim+query_dim] -> [B,N,H*self.output_dim]
         
         output = output.view(B, N, self.horizon, self.output_dim).transpose(1, 2)  # [B, Horizon, N, output_dim]
-
+        
+        if self.add_query:
+            output = output + prediction
+        
         return {'prediction': output}
 
     # def _init_encoder(self): # not important TODO: RAST utilized RAG augmenting pre-trained STGNNs in place of LLM.
@@ -501,8 +521,8 @@ class RAST(nn.Module):
         
     #     # Collect parameter counts
     #     modules = {
-    #         'temporal_series_encoder': self.temporal_series_encoder,
-    #         'spatial_node_embeddings': self.spatial_node_embeddings,
+    #         'temporal_encoder': self.temporal_encoder,
+    #         'spatial_encoder': self.spatial_encoder,
     #         'feature_encoder_layers': self.feature_encoder_layers,
     #         'attn': self.attn,
     #         'backbone': self.backbone,

@@ -1,0 +1,743 @@
+2025-07-19 01:38:30,735 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:30,842 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:30,938 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:30,977 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:31,111 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,174 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,175 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,175 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/PEMS04_300_12_12/0825f2c55fa7f9cfce62c61a7b821b22'
+2025-07-19 01:38:31,175 - easytorch - INFO - Building model.
+2025-07-19 01:38:31,196 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,213 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,293 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,293 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,294 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/PEMS08_300_12_12/269e48531774f2a3e27bedcc6c9080f2'
+2025-07-19 01:38:31,294 - easytorch - INFO - Building model.
+2025-07-19 01:38:31,318 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,318 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,318 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/PEMS03_300_12_12/3ffdade10dab08027adb9ca7b0c26a44'
+2025-07-19 01:38:31,318 - easytorch - INFO - Building model.
+2025-07-19 01:38:31,365 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:31,410 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,443 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:31,444 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:31,444 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:31,494 - easytorch-training - INFO - Train dataset length: 10173
+2025-07-19 01:38:31,528 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,528 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,528 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/PEMS07_300_12_12/e895a24070677957fcf4a9ffdffb1074'
+2025-07-19 01:38:31,528 - easytorch - INFO - Building model.
+2025-07-19 01:38:31,535 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:31,591 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,669 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,669 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,669 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/GBA_300_12_12/0d839afb420f7ef02ec653066ef92cf6'
+2025-07-19 01:38:31,669 - easytorch - INFO - Building model.
+2025-07-19 01:38:31,675 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:31,675 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:31,675 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:31,696 - easytorch-training - INFO - Train dataset length: 10691
+2025-07-19 01:38:31,708 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:31,708 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:31,708 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:31,748 - easytorch-training - INFO - Train dataset length: 15703
+2025-07-19 01:38:31,841 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:31,841 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:31,841 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:31,935 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:31,965 - easytorch-training - INFO - Train dataset length: 16913
+2025-07-19 01:38:31,973 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:31,973 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:31,973 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/SD_300_12_12/e19064e36fc07de77d2a2b7248df1408'
+2025-07-19 01:38:31,973 - easytorch - INFO - Building model.
+2025-07-19 01:38:32,100 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:32,101 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:32,101 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:32,223 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:32,223 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:32,224 - easytorch-training - INFO - Building training data loader.
+2025-07-19 01:38:32,377 - easytorch-training - INFO - Train dataset length: 21001
+2025-07-19 01:38:32,426 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:32,426 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7c650142aa50>
+2025-07-19 01:38:32,431 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:32,431 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:32,436 - easytorch-training - INFO - Validation dataset length: 3375
+2025-07-19 01:38:32,441 - easytorch-training - INFO - Test dataset length: 3375
+2025-07-19 01:38:32,441 - easytorch-training - INFO - Number of parameters: 121068
+2025-07-19 01:38:32,441 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: PEMS04
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: PEMS04
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: PEMS04
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 307
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 3
+    if_node: True
+    node_dim: 32
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 288
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/PEMS04_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 50, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: True
+
+  0%|          | 0/159 [00:00<?, ?it/s]2025-07-19 01:38:32,476 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:32,476 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x713af0e047d0>
+2025-07-19 01:38:32,481 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:32,481 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:32,490 - easytorch-training - INFO - Validation dataset length: 5218
+2025-07-19 01:38:32,501 - easytorch-training - INFO - Test dataset length: 5218
+2025-07-19 01:38:32,501 - easytorch-training - INFO - Number of parameters: 122700
+2025-07-19 01:38:32,502 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: PEMS03
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: PEMS03
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: PEMS03
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 358
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 3
+    if_node: True
+    node_dim: 32
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 288
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/PEMS03_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 50, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: True
+
+  0%|          | 0/246 [00:00<?, ?it/s]2025-07-19 01:38:32,549 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:32,549 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x785fb4530490>
+2025-07-19 01:38:32,556 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:32,556 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:32,559 - easytorch-training - INFO - Validation dataset length: 3548
+2025-07-19 01:38:32,569 - easytorch-training - INFO - Test dataset length: 3548
+2025-07-19 01:38:32,569 - easytorch-training - INFO - Number of parameters: 116684
+2025-07-19 01:38:32,569 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: PEMS08
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: PEMS08
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: PEMS08
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 170
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 3
+    if_node: True
+    node_dim: 32
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 288
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/PEMS08_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 50, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: True
+
+  0%|          | 0/168 [00:00<?, ?it/s]2025-07-19 01:38:32,735 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:32,735 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7b8020fc4c10>
+2025-07-19 01:38:32,737 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:32,737 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:32,777 - easytorch-training - INFO - Validation dataset length: 5621
+2025-07-19 01:38:32,794 - easytorch-training - INFO - Test dataset length: 5621
+2025-07-19 01:38:32,794 - easytorch-training - INFO - Number of parameters: 139500
+2025-07-19 01:38:32,795 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: PEMS07
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: PEMS07
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: PEMS07
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 883
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 3
+    if_node: True
+    node_dim: 32
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 288
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/PEMS07_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 50, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: True
+
+  0%|          | 0/265 [00:00<?, ?it/s]2025-07-19 01:38:32,875 - easytorch-training - INFO - Train dataset length: 21001
+2025-07-19 01:38:33,042 - easytorch-launcher - INFO - Launching EasyTorch training.
+2025-07-19 01:38:33,390 - easytorch-env - INFO - Use devices 3.
+2025-07-19 01:38:33,417 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:33,417 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7fd548808dd0>
+2025-07-19 01:38:33,418 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:33,419 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:33,431 - easytorch-launcher - INFO - Initializing runner "<class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>"
+2025-07-19 01:38:33,431 - easytorch-env - INFO - Disable TF32 mode
+2025-07-19 01:38:33,431 - easytorch - INFO - Set ckpt save dir: 'checkpoints/STID/GLA_300_12_12/584f5207936b01635575fe47b2a627e4'
+2025-07-19 01:38:33,431 - easytorch - INFO - Building model.
+2025-07-19 01:38:33,443 - easytorch-training - INFO - Validation dataset length: 6985
+2025-07-19 01:38:33,461 - easytorch-training - INFO - Test dataset length: 6985
+2025-07-19 01:38:33,462 - easytorch-training - INFO - Number of parameters: 258316
+2025-07-19 01:38:33,462 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: SD
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: SD
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: SD
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 716
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 4
+    if_node: True
+    node_dim: 64
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 96
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/SD_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 30, 60, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 32
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: False
+
+  0%|          | 0/657 [00:00<?, ?it/s]2025-07-19 01:38:33,780 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:33,781 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x70ab1396ad10>
+2025-07-19 01:38:33,782 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:33,782 - easytorch-training - INFO - Building val data loader.
+2025-07-19 01:38:33,837 - easytorch-training - INFO - Validation dataset length: 6985
+2025-07-19 01:38:33,960 - easytorch-training - INFO - Test dataset length: 6985
+2025-07-19 01:38:33,961 - easytorch-training - INFO - Number of parameters: 711436
+2025-07-19 01:38:33,961 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: GBA
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: GBA
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: GBA
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 2352
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 4
+    if_node: True
+    node_dim: 128
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 96
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/GBA_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 30, 60, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: False
+
+  0%|          | 0/329 [00:00<?, ?it/s]2025-07-19 01:38:34,153 - easytorch-training - INFO - Initializing training.
+2025-07-19 01:38:34,153 - easytorch-training - INFO - Set clip grad, param: {'max_norm': 5.0}
+2025-07-19 01:38:34,153 - easytorch-training - INFO - Building training data loader.
+  1%|          | 1/159 [00:02<05:46,  2.19s/it]  1%|          | 1/168 [00:02<05:48,  2.09s/it]  0%|          | 1/265 [00:02<09:01,  2.05s/it]  1%|▏         | 2/159 [00:02<02:53,  1.11s/it]  1%|          | 2/168 [00:02<02:55,  1.06s/it]  0%|          | 1/246 [00:02<10:15,  2.51s/it]  2%|▏         | 3/159 [00:02<01:59,  1.30it/s]  2%|▏         | 3/168 [00:02<02:06,  1.31it/s]  1%|          | 2/246 [00:02<05:11,  1.28s/it]  1%|          | 2/265 [00:02<05:32,  1.27s/it]  3%|▎         | 4/159 [00:03<01:36,  1.61it/s]  2%|▏         | 4/168 [00:03<01:40,  1.64it/s]  1%|          | 3/246 [00:03<03:34,  1.13it/s]  0%|          | 1/657 [00:02<27:46,  2.54s/it]2025-07-19 01:38:36,007 - easytorch-training - INFO - Train dataset length: 21001
+  3%|▎         | 5/168 [00:03<01:27,  1.86it/s]  3%|▎         | 5/159 [00:03<01:27,  1.75it/s]  2%|▏         | 4/246 [00:03<02:52,  1.40it/s]  1%|          | 3/265 [00:03<04:36,  1.06s/it]  0%|          | 2/657 [00:03<15:03,  1.38s/it]  4%|▎         | 6/168 [00:04<01:21,  1.98it/s]  4%|▍         | 6/159 [00:04<01:23,  1.83it/s]  2%|▏         | 5/246 [00:04<02:27,  1.63it/s]  0%|          | 3/657 [00:03<10:44,  1.02it/s]  4%|▍         | 7/168 [00:04<01:19,  2.03it/s]  2%|▏         | 4/265 [00:04<04:09,  1.04it/s]  4%|▍         | 7/159 [00:04<01:19,  1.92it/s]  2%|▏         | 6/246 [00:04<02:18,  1.73it/s]  5%|▍         | 8/168 [00:05<01:18,  2.03it/s]  1%|          | 4/657 [00:04<08:58,  1.21it/s]  5%|▌         | 8/159 [00:05<01:16,  1.97it/s]  3%|▎         | 7/246 [00:05<02:07,  1.87it/s]  5%|▌         | 9/168 [00:05<01:13,  2.15it/s]  2%|▏         | 5/265 [00:05<03:58,  1.09it/s]  3%|▎         | 8/246 [00:05<02:07,  1.87it/s]  6%|▌         | 9/159 [00:05<01:18,  1.91it/s]  1%|          | 5/657 [00:04<08:02,  1.35it/s]  6%|▌         | 10/168 [00:05<01:09,  2.28it/s]2025-07-19 01:38:38,451 - easytorch-training - INFO - Set optim: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.002
+    maximize: False
+    weight_decay: 0.0001
+)
+2025-07-19 01:38:38,451 - easytorch-training - INFO - Set lr_scheduler: <torch.optim.lr_scheduler.MultiStepLR object at 0x7f7d5c8aa3d0>
+2025-07-19 01:38:38,465 - easytorch-training - INFO - Initializing validation.
+2025-07-19 01:38:38,465 - easytorch-training - INFO - Building val data loader.
+  6%|▋         | 10/159 [00:06<01:12,  2.04it/s]  4%|▎         | 9/246 [00:06<02:04,  1.90it/s]  2%|▏         | 6/265 [00:05<03:39,  1.18it/s]  1%|          | 6/657 [00:05<07:18,  1.48it/s]2025-07-19 01:38:38,842 - easytorch-training - INFO - Validation dataset length: 6985
+  7%|▋         | 11/168 [00:06<01:11,  2.21it/s]  7%|▋         | 11/159 [00:06<01:07,  2.20it/s]  4%|▍         | 10/246 [00:06<02:02,  1.93it/s]2025-07-19 01:38:39,240 - easytorch-training - INFO - Test dataset length: 6985
+2025-07-19 01:38:39,240 - easytorch-training - INFO - Number of parameters: 901132
+2025-07-19 01:38:39,240 - easytorch-training - INFO - Epoch 1 / 300
+DESCRIPTION: An Example Config
+GPU_NUM: 1
+RUNNER: <class 'basicts.runners.runner_zoo.simple_tsf_runner.SimpleTimeSeriesForecastingRunner'>
+DATASET:
+  NAME: GLA
+  TYPE: <class 'basicts.data.simple_tsf_dataset.TimeSeriesForecastingDataset'>
+  PARAM:
+    dataset_name: GLA
+    train_val_test_ratio: [0.6, 0.2, 0.2]
+    input_len: 12
+    output_len: 12
+SCALER:
+  TYPE: <class 'basicts.scaler.z_score_scaler.ZScoreScaler'>
+  PARAM:
+    dataset_name: GLA
+    train_ratio: 0.6
+    norm_each_channel: False
+    rescale: True
+MODEL:
+  NAME: STID
+  ARCH: <class 'baselines.STID.arch.stid_arch.STID'>
+  PARAM:
+    num_nodes: 3834
+    input_len: 12
+    input_dim: 3
+    embed_dim: 32
+    output_len: 12
+    num_layer: 4
+    if_node: True
+    node_dim: 128
+    if_T_i_D: True
+    if_D_i_W: True
+    temp_dim_tid: 32
+    temp_dim_diw: 32
+    time_of_day_size: 96
+    day_of_week_size: 7
+  FORWARD_FEATURES: [0, 1, 2]
+  TARGET_FEATURES: [0]
+METRICS:
+  FUNCS:
+    MAE: masked_mae
+    MAPE: masked_mape
+    RMSE: masked_rmse
+  TARGET: MAE
+  NULL_VAL: 0.0
+TRAIN:
+  NUM_EPOCHS: 300
+  CKPT_SAVE_DIR: checkpoints/STID/GLA_300_12_12
+  LOSS: masked_mae
+  OPTIM:
+    TYPE: Adam
+    PARAM:
+      lr: 0.002
+      weight_decay: 0.0001
+  LR_SCHEDULER:
+    TYPE: MultiStepLR
+    PARAM:
+      milestones: [1, 30, 60, 80]
+      gamma: 0.5
+  CLIP_GRAD_PARAM:
+    max_norm: 5.0
+  DATA:
+    BATCH_SIZE: 64
+    SHUFFLE: True
+VAL:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+TEST:
+  INTERVAL: 1
+  DATA:
+    BATCH_SIZE: 64
+EVAL:
+  HORIZONS: [3, 6, 12]
+  USE_GPU: False
+
+  0%|          | 0/329 [00:00<?, ?it/s]  7%|▋         | 12/168 [00:06<01:09,  2.26it/s]  1%|          | 7/657 [00:05<06:53,  1.57it/s]  3%|▎         | 7/265 [00:06<03:28,  1.24it/s]  8%|▊         | 12/159 [00:07<01:08,  2.16it/s]  4%|▍         | 11/246 [00:07<01:59,  1.97it/s]  8%|▊         | 13/168 [00:07<01:09,  2.24it/s]  1%|          | 8/657 [00:06<06:43,  1.61it/s]  8%|▊         | 13/159 [00:07<01:08,  2.15it/s]  8%|▊         | 14/168 [00:07<01:08,  2.24it/s]  5%|▍         | 12/246 [00:07<01:58,  1.98it/s]  3%|▎         | 8/265 [00:07<03:29,  1.22it/s]  9%|▉         | 14/159 [00:07<01:06,  2.19it/s]  1%|▏         | 9/657 [00:07<06:42,  1.61it/s]  9%|▉         | 15/168 [00:08<01:06,  2.29it/s]  5%|▌         | 13/246 [00:08<01:55,  2.02it/s]  9%|▉         | 15/159 [00:08<01:05,  2.19it/s] 10%|▉         | 16/168 [00:08<01:05,  2.31it/s]  3%|▎         | 9/265 [00:08<03:28,  1.23it/s]  6%|▌         | 14/246 [00:08<01:51,  2.08it/s]  2%|▏         | 10/657 [00:07<06:31,  1.65it/s] 10%|█         | 16/159 [00:08<01:02,  2.28it/s] 10%|█         | 17/168 [00:08<01:02,  2.40it/s]  6%|▌         | 15/246 [00:09<01:51,  2.08it/s]  2%|▏         | 11/657 [00:08<06:15,  1.72it/s] 11%|█         | 17/159 [00:09<01:03,  2.24it/s] 11%|█         | 18/168 [00:09<00:59,  2.50it/s]  4%|▍         | 10/265 [00:09<03:30,  1.21it/s]  7%|▋         | 16/246 [00:09<01:49,  2.10it/s] 11%|█▏        | 19/168 [00:09<01:01,  2.40it/s]  2%|▏         | 12/657 [00:08<06:13,  1.73it/s] 11%|█▏        | 18/159 [00:09<01:09,  2.04it/s]  7%|▋         | 17/246 [00:09<01:43,  2.20it/s] 12%|█▏        | 20/168 [00:10<01:01,  2.41it/s]  2%|▏         | 13/657 [00:09<06:04,  1.77it/s] 12%|█▏        | 19/159 [00:10<01:07,  2.08it/s]  4%|▍         | 11/265 [00:09<03:29,  1.21it/s]  7%|▋         | 18/246 [00:10<01:38,  2.31it/s] 12%|█▎        | 21/168 [00:10<01:00,  2.44it/s] 13%|█▎        | 20/159 [00:10<01:05,  2.12it/s]  2%|▏         | 14/657 [00:09<05:59,  1.79it/s]  8%|▊         | 19/246 [00:10<01:40,  2.25it/s] 13%|█▎        | 22/168 [00:10<01:00,  2.42it/s] 13%|█▎        | 21/159 [00:11<01:02,  2.22it/s]  5%|▍         | 12/265 [00:10<03:32,  1.19it/s] 14%|█▎        | 23/168 [00:11<01:00,  2.40it/s]  2%|▏         | 15/657 [00:10<06:07,  1.75it/s]  8%|▊         | 20/246 [00:11<01:50,  2.04it/s] 14%|█▍        | 22/159 [00:11<01:00,  2.28it/s] 14%|█▍        | 24/168 [00:11<01:01,  2.35it/s]  5%|▍         | 13/265 [00:11<03:24,  1.23it/s]  2%|▏         | 16/657 [00:11<06:08,  1.74it/s]  9%|▊         | 21/246 [00:12<01:56,  1.93it/s] 14%|█▍        | 23/159 [00:12<01:01,  2.20it/s] 15%|█▍        | 25/168 [00:12<00:58,  2.46it/s]  9%|▉         | 22/246 [00:12<01:49,  2.05it/s] 15%|█▌        | 26/168 [00:12<00:53,  2.64it/s]  3%|▎         | 17/657 [00:11<06:08,  1.74it/s] 15%|█▌        | 24/159 [00:12<01:05,  2.07it/s]  5%|▌         | 14/265 [00:12<03:22,  1.24it/s]  9%|▉         | 23/246 [00:12<01:42,  2.19it/s] 16%|█▌        | 27/168 [00:12<00:53,  2.65it/s]  0%|          | 1/329 [00:11<1:02:33, 11.44s/it]  3%|▎         | 18/657 [00:12<05:46,  1.85it/s] 16%|█▌        | 25/159 [00:13<01:07,  1.99it/s] 10%|▉         | 24/246 [00:13<01:44,  2.12it/s] 17%|█▋        | 28/168 [00:13<00:56,  2.48it/s]  6%|▌         | 15/265 [00:13<03:24,  1.22it/s]  3%|▎         | 19/657 [00:12<05:43,  1.86it/s] 16%|█▋        | 26/159 [00:13<01:08,  1.94it/s] 17%|█▋        | 29/168 [00:13<00:57,  2.43it/s] 10%|█         | 25/246 [00:13<01:46,  2.08it/s]  3%|▎         | 20/657 [00:13<05:38,  1.88it/s] 18%|█▊        | 30/168 [00:14<00:57,  2.42it/s] 17%|█▋        | 27/159 [00:14<01:07,  1.95it/s] 11%|█         | 26/246 [00:14<01:44,  2.11it/s]  6%|▌         | 16/265 [00:14<03:25,  1.21it/s] 18%|█▊        | 31/168 [00:14<00:56,  2.44it/s]  3%|▎         | 21/657 [00:13<05:37,  1.89it/s] 18%|█▊        | 28/159 [00:14<01:04,  2.02it/s] 11%|█         | 27/246 [00:14<01:44,  2.10it/s] 19%|█▉        | 32/168 [00:14<00:56,  2.40it/s] 18%|█▊        | 29/159 [00:15<01:04,  2.01it/s] 11%|█▏        | 28/246 [00:15<01:41,  2.16it/s]  3%|▎         | 22/657 [00:14<05:55,  1.79it/s]  6%|▋         | 17/265 [00:15<03:31,  1.17it/s] 20%|█▉        | 33/168 [00:15<00:55,  2.42it/s]  4%|▎         | 23/657 [00:14<06:05,  1.73it/s] 20%|██        | 34/168 [00:15<00:56,  2.37it/s] 19%|█▉        | 30/159 [00:15<01:14,  1.73it/s] 12%|█▏        | 29/246 [00:15<01:57,  1.85it/s]  7%|▋         | 18/265 [00:15<03:36,  1.14it/s] 21%|██        | 35/168 [00:16<00:57,  2.31it/s] 19%|█▉        | 31/159 [00:16<01:13,  1.74it/s] 12%|█▏        | 30/246 [00:16<01:59,  1.81it/s]  4%|▎         | 24/657 [00:15<06:19,  1.67it/s] 21%|██▏       | 36/168 [00:16<00:57,  2.29it/s] 20%|██        | 32/159 [00:16<01:07,  1.89it/s] 13%|█▎        | 31/246 [00:16<01:54,  1.88it/s]  7%|▋         | 19/265 [00:16<03:32,  1.16it/s]  4%|▍         | 25/657 [00:16<06:15,  1.68it/s] 22%|██▏       | 37/168 [00:17<00:56,  2.33it/s] 21%|██        | 33/159 [00:17<01:03,  1.97it/s] 13%|█▎        | 32/246 [00:17<01:45,  2.02it/s]  4%|▍         | 26/657 [00:16<05:57,  1.77it/s] 23%|██▎       | 38/168 [00:17<00:55,  2.34it/s] 13%|█▎        | 33/246 [00:17<01:38,  2.15it/s] 21%|██▏       | 34/159 [00:17<01:00,  2.06it/s]  8%|▊         | 20/265 [00:17<03:25,  1.19it/s] 23%|██▎       | 39/168 [00:17<00:52,  2.44it/s]  4%|▍         | 27/657 [00:17<05:47,  1.82it/s] 22%|██▏       | 35/159 [00:18<00:56,  2.19it/s] 14%|█▍        | 34/246 [00:18<01:36,  2.20it/s]  0%|          | 1/329 [00:11<1:03:32, 11.62s/it] 24%|██▍       | 40/168 [00:18<00:53,  2.39it/s] 23%|██▎       | 36/159 [00:18<00:53,  2.32it/s]  4%|▍         | 28/657 [00:17<05:39,  1.85it/s] 14%|█▍        | 35/246 [00:18<01:35,  2.21it/s]  8%|▊         | 21/265 [00:18<03:33,  1.14it/s] 24%|██▍       | 41/168 [00:18<00:55,  2.28it/s] 23%|██▎       | 37/159 [00:19<00:53,  2.30it/s] 15%|█▍        | 36/246 [00:19<01:34,  2.23it/s]  4%|▍         | 29/657 [00:18<05:54,  1.77it/s] 25%|██▌       | 42/168 [00:19<00:57,  2.20it/s] 24%|██▍       | 38/159 [00:19<00:51,  2.35it/s] 15%|█▌        | 37/246 [00:19<01:32,  2.25it/s]  8%|▊         | 22/265 [00:19<03:36,  1.12it/s]  5%|▍         | 30/657 [00:18<05:51,  1.78it/s] 25%|██▍       | 39/159 [00:19<00:53,  2.25it/s] 15%|█▌        | 38/246 [00:19<01:32,  2.26it/s] 26%|██▌       | 43/168 [00:19<01:01,  2.02it/s]  5%|▍         | 31/657 [00:19<05:43,  1.82it/s] 25%|██▌       | 40/159 [00:20<00:53,  2.22it/s] 26%|██▌       | 44/168 [00:20<01:01,  2.01it/s] 16%|█▌        | 39/246 [00:20<01:43,  2.00it/s]  9%|▊         | 23/265 [00:20<03:38,  1.11it/s] 26%|██▌       | 41/159 [00:20<00:55,  2.13it/s]  5%|▍         | 32/657 [00:19<05:43,  1.82it/s] 27%|██▋       | 45/168 [00:20<01:00,  2.02it/s]  1%|          | 2/329 [00:19<51:37,  9.47s/it]   16%|█▋        | 40/246 [00:21<01:40,  2.05it/s]  5%|▌         | 33/657 [00:20<05:40,  1.83it/s] 26%|██▋       | 42/159 [00:21<00:57,  2.02it/s] 27%|██▋       | 46/168 [00:21<01:00,  2.01it/s]  9%|▉         | 24/265 [00:21<03:32,  1.13it/s] 17%|█▋        | 41/246 [00:21<01:40,  2.04it/s]  5%|▌         | 34/657 [00:20<05:31,  1.88it/s] 27%|██▋       | 43/159 [00:21<00:57,  2.01it/s] 28%|██▊       | 47/168 [00:21<01:00,  1.99it/s] 17%|█▋        | 42/246 [00:22<01:41,  2.00it/s]  5%|▌         | 35/657 [00:21<05:29,  1.89it/s] 28%|██▊       | 44/159 [00:22<00:58,  1.98it/s] 29%|██▊       | 48/168 [00:22<01:00,  2.00it/s]  9%|▉         | 25/265 [00:22<03:41,  1.08it/s] 17%|█▋        | 43/246 [00:22<01:39,  2.04it/s] 28%|██▊       | 45/159 [00:23<00:59,  1.90it/s] 29%|██▉       | 49/168 [00:22<01:00,  1.95it/s]  5%|▌         | 36/657 [00:22<05:42,  1.81it/s] 18%|█▊        | 44/246 [00:23<01:38,  2.04it/s] 10%|▉         | 26/265 [00:23<03:41,  1.08it/s] 18%|█▊        | 45/246 [00:23<01:36,  2.07it/s] 29%|██▉       | 46/159 [00:23<00:58,  1.92it/s] 30%|██▉       | 50/168 [00:23<01:03,  1.86it/s]  6%|▌         | 37/657 [00:22<05:48,  1.78it/s] 19%|█▊        | 46/246 [00:24<01:38,  2.04it/s] 30%|██▉       | 47/159 [00:24<00:57,  1.95it/s]  6%|▌         | 38/657 [00:23<05:45,  1.79it/s] 30%|███       | 51/168 [00:24<01:03,  1.83it/s] 10%|█         | 27/265 [00:23<03:33,  1.12it/s] 30%|███       | 48/159 [00:24<00:53,  2.09it/s] 19%|█▉        | 47/246 [00:24<01:37,  2.04it/s] 31%|███       | 52/168 [00:24<01:00,  1.92it/s]  6%|▌         | 39/657 [00:23<05:49,  1.77it/s] 31%|███       | 49/159 [00:25<00:54,  2.03it/s] 20%|█▉        | 48/246 [00:24<01:37,  2.04it/s] 32%|███▏      | 53/168 [00:25<00:56,  2.03it/s] 11%|█         | 28/265 [00:24<03:30,  1.13it/s]  6%|▌         | 40/657 [00:24<05:54,  1.74it/s] 31%|███▏      | 50/159 [00:25<00:53,  2.03it/s] 32%|███▏      | 54/168 [00:25<00:53,  2.13it/s] 20%|█▉        | 49/246 [00:25<01:37,  2.02it/s]  6%|▌         | 41/657 [00:24<05:45,  1.78it/s] 32%|███▏      | 51/159 [00:25<00:53,  2.04it/s] 11%|█         | 29/265 [00:25<03:24,  1.15it/s] 33%|███▎      | 55/168 [00:25<00:54,  2.06it/s] 20%|██        | 50/246 [00:26<01:39,  1.97it/s] 33%|███▎      | 52/159 [00:26<00:54,  1.98it/s]  6%|▋         | 42/657 [00:25<06:31,  1.57it/s] 21%|██        | 51/246 [00:26<01:54,  1.70it/s] 33%|███▎      | 56/168 [00:26<01:05,  1.71it/s] 33%|███▎      | 53/159 [00:26<00:51,  2.05it/s]  1%|          | 2/329 [00:20<53:46,  9.87s/it]   11%|█▏        | 30/265 [00:26<03:40,  1.06it/s]  7%|▋         | 43/657 [00:26<06:19,  1.62it/s] 34%|███▍      | 54/159 [00:27<00:48,  2.15it/s] 34%|███▍      | 57/168 [00:27<01:02,  1.77it/s] 21%|██        | 52/246 [00:27<01:56,  1.66it/s] 35%|███▍      | 55/159 [00:27<00:48,  2.15it/s] 35%|███▍      | 58/168 [00:27<01:00,  1.81it/s] 12%|█▏        | 31/265 [00:27<03:34,  1.09it/s]  7%|▋         | 44/657 [00:26<06:32,  1.56it/s] 35%|███▌      | 56/159 [00:28<00:47,  2.17it/s] 35%|███▌      | 59/168 [00:28<00:57,  1.90it/s]  7%|▋         | 45/657 [00:27<06:19,  1.61it/s] 12%|█▏        | 32/265 [00:28<03:21,  1.16it/s] 36%|███▌      | 57/159 [00:28<00:48,  2.09it/s] 36%|███▌      | 60/168 [00:28<00:55,  1.95it/s]  7%|▋         | 46/657 [00:28<05:58,  1.70it/s]  1%|          | 3/329 [00:27<47:55,  8.82s/it] 36%|███▋      | 58/159 [00:29<00:47,  2.13it/s] 36%|███▋      | 61/168 [00:29<00:52,  2.04it/s] 12%|█▏        | 33/265 [00:29<03:14,  1.20it/s]  7%|▋         | 47/657 [00:28<05:37,  1.81it/s] 37%|███▋      | 59/159 [00:29<00:47,  2.09it/s] 37%|███▋      | 62/168 [00:29<00:51,  2.07it/s]  7%|▋         | 48/657 [00:29<05:42,  1.78it/s] 38%|███▊      | 60/159 [00:30<00:45,  2.16it/s] 38%|███▊      | 63/168 [00:30<00:50,  2.07it/s] 13%|█▎        | 34/265 [00:30<03:14,  1.19it/s] 38%|███▊      | 61/159 [00:30<00:43,  2.23it/s] 38%|███▊      | 64/168 [00:30<00:47,  2.21it/s]  7%|▋         | 49/657 [00:29<05:41,  1.78it/s] 39%|███▉      | 62/159 [00:31<00:41,  2.32it/s] 39%|███▊      | 65/168 [00:30<00:46,  2.22it/s]  8%|▊         | 50/657 [00:30<05:28,  1.85it/s] 40%|███▉      | 63/159 [00:31<00:40,  2.35it/s] 39%|███▉      | 66/168 [00:31<00:43,  2.36it/s]  8%|▊         | 51/657 [00:30<05:25,  1.86it/s] 40%|███▉      | 67/168 [00:31<00:41,  2.43it/s] 40%|████      | 64/159 [00:31<00:40,  2.33it/s] 40%|████      | 68/168 [00:32<00:39,  2.55it/s] 41%|████      | 65/159 [00:32<00:40,  2.35it/s]  8%|▊         | 52/657 [00:31<05:37,  1.79it/s] 41%|████      | 69/168 [00:32<00:37,  2.62it/s] 42%|████▏     | 66/159 [00:32<00:39,  2.35it/s]  8%|▊         | 53/657 [00:31<05:37,  1.79it/s] 42%|████▏     | 70/168 [00:32<00:37,  2.65it/s] 42%|████▏     | 71/168 [00:33<00:36,  2.68it/s]  8%|▊         | 54/657 [00:32<05:24,  1.86it/s] 43%|████▎     | 72/168 [00:33<00:33,  2.86it/s]  8%|▊         | 55/657 [00:32<05:19,  1.88it/s] 43%|████▎     | 73/168 [00:33<00:36,  2.58it/s] 44%|████▍     | 74/168 [00:34<00:35,  2.68it/s]  9%|▊         | 56/657 [00:33<05:18,  1.89it/s]  1%|          | 3/329 [00:27<47:26,  8.73s/it] 45%|████▍     | 75/168 [00:34<00:33,  2.77it/s]  9%|▊         | 57/657 [00:33<05:05,  1.96it/s] 45%|████▌     | 76/168 [00:34<00:31,  2.94it/s] 46%|████▌     | 77/168 [00:35<00:29,  3.06it/s]  9%|▉         | 58/657 [00:34<04:49,  2.07it/s] 46%|████▋     | 78/168 [00:35<00:28,  3.21it/s]  9%|▉         | 59/657 [00:34<04:43,  2.11it/s] 47%|████▋     | 79/168 [00:35<00:26,  3.37it/s]  9%|▉         | 60/657 [00:35<04:29,  2.21it/s] 48%|████▊     | 80/168 [00:36<00:27,  3.23it/s] 48%|████▊     | 81/168 [00:36<00:26,  3.28it/s]  9%|▉         | 61/657 [00:35<04:29,  2.21it/s]  9%|▉         | 62/657 [00:35<04:08,  2.39it/s] 10%|▉         | 63/657 [00:36<03:49,  2.58it/s] 10%|▉         | 64/657 [00:36<03:38,  2.72it/s] 10%|▉         | 65/657 [00:36<03:35,  2.75it/s] 10%|█         | 66/657 [00:37<03:29,  2.82it/s] 10%|█         | 67/657 [00:37<03:26,  2.86it/s] 10%|█         | 68/657 [00:37<03:22,  2.91it/s]  1%|          | 4/329 [00:32<39:28,  7.29s/it]

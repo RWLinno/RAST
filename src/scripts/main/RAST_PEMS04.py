@@ -35,9 +35,7 @@ MODEL_PARAM = {
     "output_dim": 1,
     "dropout": 0.1,
 
-    # RAST 模型参数
-    "query_dim": 128,
-    "retrieval_dim": 128, 
+    # RAST 模型参数 
     "patch_size": 32, # patching
     "stride":16,
     "factor":3,
@@ -48,7 +46,10 @@ MODEL_PARAM = {
     "timing_mode": False,  # Disable timing analysis by default
     "use_amp": False,  # Disable AMP to fix GPU issues
 
+    "query_dim": 256,
+    "retrieval_dim": 128, 
     "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
+    "encoder_layers": 3,
 }
 NUM_EPOCHS = 300
 
@@ -119,7 +120,7 @@ CFG.TRAIN.OPTIM = EasyDict()
 CFG.TRAIN.OPTIM.TYPE = "Adam"
 CFG.TRAIN.OPTIM.PARAM = {
     "lr": 0.002,
-    "weight_decay": 1.0e-5,
+    "weight_decay": 1.0e-4,
     "eps": 1.0e-8
 }
 # Learning rate scheduler settings
@@ -131,7 +132,7 @@ CFG.TRAIN.LR_SCHEDULER.PARAM = {
 }
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()
-CFG.TRAIN.DATA.BATCH_SIZE = 64
+CFG.TRAIN.DATA.BATCH_SIZE = 128
 CFG.TRAIN.DATA.SHUFFLE = True
 # Gradient clipping settings
 CFG.TRAIN.CLIP_GRAD_PARAM = {
@@ -147,13 +148,13 @@ CFG.TRAIN.CL.PREDICTION_LENGTH = 12
 CFG.VAL = EasyDict()
 CFG.VAL.INTERVAL = 1
 CFG.VAL.DATA = EasyDict()
-CFG.VAL.DATA.BATCH_SIZE = 64
+CFG.VAL.DATA.BATCH_SIZE = 128
 
 ############################## Test Configuration ##############################
 CFG.TEST = EasyDict()
 CFG.TEST.INTERVAL = 1
 CFG.TEST.DATA = EasyDict()
-CFG.TEST.DATA.BATCH_SIZE = 64
+CFG.TEST.DATA.BATCH_SIZE = 128
 
 ############################## Evaluation Configuration ##############################
 

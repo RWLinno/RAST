@@ -13,7 +13,7 @@ from src.arch import RAST
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'PEMS03'  # Dataset name
+DATA_NAME = 'GLA'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -27,7 +27,7 @@ MODEL_ARCH = RAST
 adj_mx, _ = load_adj("datasets/" + DATA_NAME +
                      "/adj_mx.pkl", "doubletransition")
 MODEL_PARAM = {
-    "num_nodes": 358,
+    "num_nodes": 3834,
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
@@ -46,13 +46,17 @@ MODEL_PARAM = {
     "retrieval_dim": 128, 
     "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
     "encoder_layers": 3,
+    
+    # Pre-trained STID model configuration
+    "pre_train_model_name": "STID",
+    "pre_train_path": f"checkpoints/STID/GLA_300_{INPUT_LEN}_{OUTPUT_LEN}",
 }
 NUM_EPOCHS = 300
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
 # General settings
-CFG.DESCRIPTION = 'Train RAST on PEMS03 dataset'
+CFG.DESCRIPTION = 'Train RAST on GLA dataset'
 CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 # Runner
 CFG.RUNNER = SimpleTimeSeriesForecastingRunner
@@ -129,7 +133,7 @@ CFG.TRAIN.LR_SCHEDULER.PARAM = {
 }
 # Train data loader settings
 CFG.TRAIN.DATA = EasyDict()
-CFG.TRAIN.DATA.BATCH_SIZE = 128
+CFG.TRAIN.DATA.BATCH_SIZE = 64
 CFG.TRAIN.DATA.SHUFFLE = True
 # Gradient clipping settings
 CFG.TRAIN.CLIP_GRAD_PARAM = {
@@ -145,13 +149,13 @@ CFG.TRAIN.CL.PREDICTION_LENGTH = 12
 CFG.VAL = EasyDict()
 CFG.VAL.INTERVAL = 1
 CFG.VAL.DATA = EasyDict()
-CFG.VAL.DATA.BATCH_SIZE = 128
+CFG.VAL.DATA.BATCH_SIZE = 64
 
 ############################## Test Configuration ##############################
 CFG.TEST = EasyDict()
 CFG.TEST.INTERVAL = 1
 CFG.TEST.DATA = EasyDict()
-CFG.TEST.DATA.BATCH_SIZE = 128
+CFG.TEST.DATA.BATCH_SIZE = 64
 
 ############################## Evaluation Configuration ##############################
 
@@ -160,3 +164,4 @@ CFG.EVAL = EasyDict()
 # Evaluation parameters
 CFG.EVAL.HORIZONS = [3, 6, 12] # Prediction horizons for evaluation. Default: []
 CFG.EVAL.USE_GPU = True # Whether to use GPU for evaluation. Default: True
+CFG.TRAIN.EARLY_STOPPING_PATIENCE = 10
