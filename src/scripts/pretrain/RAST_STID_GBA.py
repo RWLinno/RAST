@@ -13,7 +13,7 @@ from src.arch import RAST
 
 ############################## Hot Parameters ##############################
 # Dataset & Metrics configuration
-DATA_NAME = 'GLA'  # Dataset name
+DATA_NAME = 'GBA'  # Dataset name
 regular_settings = get_regular_settings(DATA_NAME)
 INPUT_LEN = regular_settings['INPUT_LEN']  # Length of input sequence
 OUTPUT_LEN = regular_settings['OUTPUT_LEN']  # Length of output sequence
@@ -27,7 +27,8 @@ MODEL_ARCH = RAST
 adj_mx, _ = load_adj("datasets/" + DATA_NAME +
                      "/adj_mx.pkl", "doubletransition")
 MODEL_PARAM = {
-    "num_nodes": 3834,
+    "num_nodes": 2352,
+    "supports": [torch.tensor(i) for i in adj_mx],
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
@@ -42,21 +43,21 @@ MODEL_PARAM = {
     "timing_mode": False,  # Disable timing analysis by default
     "use_amp": False,  # Disable AMP to fix GPU issues
 
-    "query_dim": 256,
-    "retrieval_dim": 128, 
+    "query_dim": 64, # last: 256
+    "retrieval_dim": 64, # last: 128
     "update_interval": 10, # Retrieval store update interval (epochs) for better training speed
     "encoder_layers": 3,
     
     # Pre-trained STID model configuration
     "pre_train_model_name": "STID",
-    "pre_train_path": f"checkpoints/STID/GLA_300_{INPUT_LEN}_{OUTPUT_LEN}",
+    "pre_train_path": f"checkpoints/STID/STID_GBA_093.pt",
 }
 NUM_EPOCHS = 300
 
 ############################## General Configuration ##############################
 CFG = EasyDict()
 # General settings
-CFG.DESCRIPTION = 'Train RAST on GLA dataset'
+CFG.DESCRIPTION = 'Train RAST on GBA dataset'
 CFG.GPU_NUM = 1 # Number of GPUs to use (0 for CPU mode)
 # Runner
 CFG.RUNNER = SimpleTimeSeriesForecastingRunner
@@ -118,9 +119,9 @@ MODEL_PARAM['database_path'] = CFG.TRAIN.CKPT_SAVE_DIR
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings
 CFG.TRAIN.OPTIM = EasyDict()
-CFG.TRAIN.OPTIM.TYPE = "Adam"
+CFG.TRAIN.OPTIM.TYPE = "AdamW"
 CFG.TRAIN.OPTIM.PARAM = {
-    "lr": 0.002,
+    "lr": 0.005,
     "weight_decay": 1.0e-4,
     "eps": 1.0e-8
 }

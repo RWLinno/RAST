@@ -28,6 +28,7 @@ adj_mx, _ = load_adj("datasets/" + DATA_NAME +
                      "/adj_mx.pkl", "doubletransition")
 MODEL_PARAM = {
     "num_nodes": 170,
+    "supports": [torch.tensor(i) for i in adj_mx],
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
@@ -44,13 +45,13 @@ MODEL_PARAM = {
     "use_amp": False,  # Disable AMP to fix GPU issues
 
     "encoder_layers": 3,
-    "query_dim": 256,
-    "retrieval_dim": 128, 
+    "query_dim": 64, # last: 256
+    "retrieval_dim": 64, # last: 128
     "update_interval": 10,
     
     # Pre-trained STID model configuration
     "pre_train_model_name": "STID",
-    "pre_train_path": f"checkpoints/STID/PEMS08_300_{INPUT_LEN}_{OUTPUT_LEN}",
+    "pre_train_path": f"checkpoints/STID/STID_PEMS08_300.pt",
 }
 NUM_EPOCHS = 300
 
@@ -118,9 +119,9 @@ CFG.TRAIN.CKPT_SAVE_DIR = os.path.join(
 CFG.TRAIN.LOSS = masked_mae
 # Optimizer settings
 CFG.TRAIN.OPTIM = EasyDict()
-CFG.TRAIN.OPTIM.TYPE = "Adam"
+CFG.TRAIN.OPTIM.TYPE = "AdamW"
 CFG.TRAIN.OPTIM.PARAM = {
-    "lr": 0.002,
+    "lr": 0.005,
     "weight_decay": 1.0e-4,
     "eps": 1.0e-8
 }

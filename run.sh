@@ -17,8 +17,8 @@ nohup python experiments/train.py -g 2 -c ./src/scripts/main/RAST_PEMS07.py > ./
 nohup python experiments/train.py -g 2 -c ./src/scripts/main/RAST_PEMS08.py > ./src/logs/RAST_PEMS08.log 2>&1 &
 
 # large scale
-nohup python experiments/train.py -g 3 -c ./src/scripts/main/RAST_SD.py > ./src/logs/RAST_SD.log 2>&1 &
-nohup python experiments/train.py -g 3 -c ./src/scripts/main/RAST_GBA.py > ./src/logs/RAST_GBA.log 2>&1 &
+nohup python experiments/train.py -g 1 -c ./src/scripts/main/RAST_SD.py > ./src/logs/RAST_SD.log 2>&1 &
+nohup python experiments/train.py -g 1 -c ./src/scripts/main/RAST_GBA.py > ./src/logs/RAST_GBA.log 2>&1 &
 nohup python experiments/train.py -g 1 -c ./src/scripts/main/RAST_GLA.py > ./src/logs/RAST_GLA.log 2>&1 &
 
 # STID+RAST
@@ -26,9 +26,9 @@ nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_PEMS0
 nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_PEMS04.py > ./src/logs/RAST_STID_PEMS04.log 2>&1 &
 nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_PEMS07.py > ./src/logs/RAST_STID_PEMS07.log 2>&1 &
 nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_PEMS08.py > ./src/logs/RAST_STID_PEMS08.log 2>&1 &
-nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_SD.py > ./src/logs/RAST_STID_SD.log 2>&1 &
-nohup python experiments/train.py -g 3 -c ./src/scripts/pretrain/RAST_STID_GBA.py > ./src/logs/RAST_STID_GBA.log 2>&1 &
-nohup python experiments/train.py -g 1 -c ./src/scripts/pretrain/RAST_STID_GLA.py > ./src/logs/RAST_STID_GLA.log 2>&1 &
+nohup python experiments/train.py -g 2 -c ./src/scripts/pretrain/RAST_STID_SD.py > ./src/logs/RAST_STID_SD.log 2>&1 &
+nohup python experiments/train.py -g 2 -c ./src/scripts/pretrain/RAST_STID_GBA.py > ./src/logs/RAST_STID_GBA.log 2>&1 &
+nohup python experiments/train.py -g 2 -c ./src/scripts/pretrain/RAST_STID_GLA.py > ./src/logs/RAST_STID_GLA.log 2>&1 &
 
 # components ablation
 nohup python experiments/train.py -g 0 -c ./src/scripts/ablation/PEMS04_only_retrieval.py > ./src/logs/PEMS04_only_retrieval.log 2>&1 &

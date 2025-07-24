@@ -29,6 +29,7 @@ adj_mx, _ = load_adj("datasets/" + DATA_NAME +
 MODEL_PARAM = {
     # 基本训练参数
     "num_nodes": 307,
+    "supports": [torch.tensor(i) for i in adj_mx],
     "input_len": INPUT_LEN,
     "output_len": OUTPUT_LEN,
     "input_dim": 3,
