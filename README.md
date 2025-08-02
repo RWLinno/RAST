@@ -1,6 +1,6 @@
 
 # RAST
-This code is a PyTorch implementation of our paper "RAST: A Retrieval-Augmented Transformer for Time Series Forecasting".
+This code is a PyTorch implementation of our paper "RAST".
 
 ## Requirements
 We implement the experiments on a Linux Server with CUDA 12.2 equipped with 4x A6000 GPUs. For convenience, execute the following command.
@@ -16,15 +16,6 @@ pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
 pip install -r requirements.txt
 ```
 
-### Localizing the RAG knowledge base
-https://zhuanlan.zhihu.com/p/20818407889
-使用Ollama本地部署大语言模型，模型选择看个人喜好
-```
-ollama run deepseek-r1:7b # you can 
-ollama pull nomic-embed-text #
-
-```
-
 ## Dataset
 PEMS04
 You can download the dataset from [LargeST](https://github.com/liuxu77/LargeST) or [BasicTS](https://github.com/GestaltCogTeam/BasicTS/blob/master/tutorial/getting_started.md). Unzip the files to the datasets/ directory:
@@ -33,13 +24,12 @@ You can download the dataset from [LargeST](https://github.com/liuxu77/LargeST) 
 ```bash
 ## Pretrain Baselines
 python experiments/train.py -c baselines/D2STGNN/SD.py -g 2
-python experiments/train.py -c baselines/STID/SD.py -g 2
 
 # train RAST from scratch
-python experiments/train.py -c examples/regular_config.py -g 0
-python experiments/train.py -c src/train_PEMS04.py -g 0
-
 nohup python experiments/train.py -c src/train_SD.py -g 2 > logs/test.txt &
+
+# Retrieval-Augmented pre-trained STGNNs
+bash run_rast.sh
 
 ## Analysis
 cd src
